@@ -1,12 +1,13 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
+    "dev": "node -v && vite dev",
+    "build": "node -v && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2",
+    "@sveltejs/adapter-vercel": "^5.5.2",
     "@sveltejs/kit": "^1",
     "autoprefixer": "^10",
     "daisyui": "^3",
