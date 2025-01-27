@@ -1,63 +1,96 @@
 <script>
-    const asimovQuotes = [
-        "The saddest aspect of life right now is that science gathers knowledge faster than society gathers wisdom.",
-        "Never let your sense of morals prevent you from doing what is right.",
-        "In life, unlike chess, the game continues after checkmate.",
-        "Anti-intellectualism has been a constant thread winding its way through our political and cultural life.",
-        "If my doctor told me I had only six minutes to live, I wouldn't brood. I'd type a little faster.",
-        "Life is pleasant. Death is peaceful. It's the transition that's troublesome.",
-        "Any planet is 'Earth' to those that live on it.",
-        "Violence is the last refuge of the incompetent.",
-        "The most exciting phrase to hear in science, the one that heralds the most discoveries, is not 'Eureka!' but 'That's funny...'",
-        "Properly read, the Bible is the most potent force for atheism ever conceived.",
-        "Self-education is, I firmly believe, the only kind of education there is.",
-        "I write for the same reason I breathe - because if I didn't, I would die.",
-        "I am an atheist, out and out.",
-        "Those people who think they know everything are a great annoyance to those of us who do.",
-        "If knowledge can create problems, it is not through ignorance that we can solve them.",
-        "It is the obvious which is so difficult to see most of the time.",
-        "Imagine the people who believe such things and who are not ashamed to ignore all the patient findings of thinking minds.",
-        "The true discovery of America by mankind came when those first hunting bands crossed over from Siberia 25,000 years ago.",
-        "There is no belief, however foolish, that will not gather its faithful adherents who will defend it to the death.",
-        "The true measure of a man is what he would do if he knew he would never be caught.",
-        "To be able to ask a question clearly is two-thirds of the way to getting it answered.",
-        "A subtle thought that is in error may yet give rise to fruitful inquiry that can establish truths of great value.",
-        "The only thing that we know about the future is that it will be different.",
-        "What we need are more people who specialize in the impossible.",
-        "I do not fear computers. I fear lack of them.",
-    ];
+    let salaryPm = $state(1500);
+    let numHours = $state(180);
+    let perHour = $derived(salaryPm / numHours);
 </script>
 
 <section class=" text-center pt-32 px-8 max-w-3xl mx-auto">
     <h1 class="text-4xl lg:text-5xl font-extrabold mb-6">
-        Quotes by Isaac Asimov
+        How Valuable is Your ⏳<span class="underline text-accent"> Time</span>?
     </h1>
-    <div class="opacity-90 mb-10 text-lg">
-        Author of The Robot Series, Foundation and more
+    <div class="opacity-90 mb-5 text-lg">
+        Calculate how much your time is worth based on your salary
     </div>
 </section>
-<section class="pt-8 px-8 max-w-3xl mx-auto">
-    <ul class="divide-y">
-        {#each asimovQuotes as quote, index}
-            <li class="py-5">
-                <div class="flex flex-auto gap-10 items-baseline">
-                    <span class="badge badge-lg badge-neutral font-bold"
-                        >#{index + 1}</span
-                    >
-                    <div class="text-2xl">{quote}</div>
+
+<section
+    class="flex flex-col md:px-4 sm:px-8 p-6 gap-6 mx-auto max-w-5xl p-100 rounded md:flex-row lg:w-1/2"
+>
+    <!-- Left Column -->
+    <div
+        class=" w-1/2 p-8 rounded-lg shadow-lg flex flex-col items-center justify-center"
+    >
+        <form id="timeCalculator">
+            <label class="input input-bordered flex items-center gap-2 my-10">
+                Salary($)/month
+                <input
+                    type="number"
+                    class="grow input input-accent"
+                    placeholder="1500"
+                    bind:value={salaryPm}
+                    min="100"
+                    max="10000"
+                />
+            </label>
+
+            <label class="input input-bordered flex items-center gap-2">
+                Hours/month
+                <input
+                    type="number"
+                    class="grow input input-accent"
+                    placeholder="180"
+                    bind:value={numHours}
+                    min="10"
+                    max="180"
+                />
+            </label>
+        </form>
+    </div>
+
+    <!-- Right Column -->
+    <div
+        class="w-full p-2 rounded-lg shadow-lg text-white flex flex-col justify-center items-center md:md:w-1/2"
+        id="calculatedValue"
+    >
+        <div class="mockup-phone">
+            <div class="camera"></div>
+            <div class="display">
+                <div
+                    class="artboard artboard-demo phone-1 text-xl lg:text-3xl p-5 bg-white gap-1"
+                >
+                    {#if salaryPm > 100 && numHours > 10 && salaryPm < 100000}
+                        <p>
+                            Per-week: ${(perHour * 9 * 4).toFixed(2)}
+                        </p>
+                        <p>
+                            Per-day: ${(perHour * 9).toFixed(2)}
+                        </p>
+                        <p>
+                            Per-hour: ${perHour.toFixed(2)}
+                        </p>
+                        <p>
+                            Per-minute: ${(perHour / 60).toFixed(2)}
+                        </p>
+                    {:else if salaryPm >= 100000}
+                        <p>C'mon, enjoy life at this point 🍹</p>
+                    {:else}
+                        <p>Enter your 🤑</p>
+                    {/if}
                 </div>
-            </li>
-        {/each}
-    </ul>
+            </div>
+        </div>
+    </div>
 </section>
 
-<section class=" text-center pt-8 px-8 max-w-3xl mx-auto text-2xl">
+<section class=" text-center pt-8 px-8 max-w-3xl mx-auto text-1xl">
     Made by <a class="link link-accent" href="https://pavangudiwada.dev"
         >Pavan Gudiwada</a
     >
     <br />
     Inspired from
-    <a class="link link-accent" href="https://naval25.com">naval25.com</a>
+    <a class="link link-accent" href="https://bookscalculator.com"
+        >bookscalculator.com</a
+    >
     by
     <a class="link link-accent" href="https://marclou.com">Marc Lou</a>
 </section>
